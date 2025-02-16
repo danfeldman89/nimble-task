@@ -8,7 +8,7 @@ import ProductDetailsPage from "./components/ProductDetailsPage/ProductDetailsPa
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      <Router basename="/nimble-task">
         <Routes>
           <Route path="/" element={<ProductList />} />
           <Route path="/product/:productId" element={<ProductDetailsPage />} />
