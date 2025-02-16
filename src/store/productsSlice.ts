@@ -94,5 +94,5 @@ const productsSlice = createSlice({
                                     }
                                   });
 
-export const { addProduct, deleteProduct, updateProducts, filterProducts, sortProducts } = productsSlice.actions;
+export const { deleteProduct, updateProducts, filterProducts, sortProducts } = productsSlice.actions;
 export default productsSlice.reducer;

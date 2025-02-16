@@ -1,6 +1,8 @@
 import styles from './productDisplay.module.less';
 import { Product } from "../../types/product.ts";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../../store/productsSlice.ts";
 
 interface ProductDisplayProps {
   product: Product;
@@ -8,6 +10,7 @@ interface ProductDisplayProps {
 
 export function ProductDisplay({ product }: ProductDisplayProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleClick() {
     navigate(`/product/${product.id}`);
@@ -34,7 +37,7 @@ export function ProductDisplay({ product }: ProductDisplayProps) {
       <div className={styles["delete-button"]}>
         <button onClick={(e) => {
           e.stopPropagation();
-          // dispatch(deleteProduct(product.id));
+          dispatch(deleteProduct(product.id));
         }}>
           Delete
         </button>
