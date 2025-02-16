@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ProductList from "./components/productList/ProductList.tsx";
+import ProductList from "./components/ProductList/ProductList.tsx";
 import { Provider } from "react-redux";
 import store from "./store/store.ts";
 import ProductDetailsPage from "./components/ProductDetailsPage/ProductDetailsPage.tsx";
