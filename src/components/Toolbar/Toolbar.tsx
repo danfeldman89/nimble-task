@@ -10,23 +10,33 @@ function Toolbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [query, setQuery] = useState(new URLSearchParams(location.search).get("search") || "");
+  const initialQuery = new URLSearchParams(location.search).get("search") || "";
+  const initialSort = new URLSearchParams(location.search).get("sort") || "No sorting";
+
+  const [query, setQuery] = useState(initialQuery);
+  const [sort, setSort] = useState(initialSort);
   const debouncedSearch = useDebounce(query, 200);
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const sort = e.target.value;
-    const params = new URLSearchParams(location.search);
+    const selectedSort = e.target.value;
+    setSort(selectedSort);
 
-    if (sort === "No sorting") {
+    const params = new URLSearchParams(location.search);
+    if (selectedSort === "No sorting") {
       params.delete("sort");
     } else {
-      params.set("sort", sort);
+      params.set("sort", selectedSort);
     }
     navigate(`?${params.toString()}`, { replace: true });
 
-    const [by, order] = sort.split(" ");
+    const [by, order] = selectedSort.split(" ");
     if ((by === "price" || by === "date") && order) {
-      dispatch(sortProducts({ by: by === "date" ? "Created" : "Price", order: order === "ascending" ? "Ascending" : "Descending" }));
+      dispatch(
+        sortProducts({
+                       by: by === "date" ? "Created" : "Price",
+                       order: order === "ascending" ? "Ascending" : "Descending"
+                     })
+      );
     }
   };
 
@@ -43,26 +53,43 @@ function Toolbar() {
 
     const sortParam = params.get("sort");
     if (sortParam) {
+      setSort(sortParam); //
       const [by, order] = sortParam.split(" ");
       if ((by === "price" || by === "date") && order) {
-        dispatch(sortProducts({ by: by === "date" ? "Created" : "Price", order: order === "ascending" ? "Ascending" : "Descending" }));
+        dispatch(
+          sortProducts({
+                         by: by === "date" ? "Created" : "Price",
+                         order: order === "ascending" ? "Ascending" : "Descending"
+                       })
+        );
       }
     } else {
+      setSort("No sorting");
     }
   }, [location.search]);
 
   useEffect(() => {
     dispatch(filterProducts(debouncedSearch));
+    
+    const params = new URLSearchParams(location.search);
+    if (debouncedSearch !== "") {
+      params.set("search", debouncedSearch);
+    } else {
+      params.delete("search");
+    }
+
+    navigate(`?${params.toString()}`, { replace: true });
   }, [debouncedSearch]);
 
   return (
     <div className={styles.root}>
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search..."
+      <input value={query}
+             onChange={(e) => setQuery(e.target.value)}
+             placeholder="Search..."
       />
-      <select className={styles.sortDropdown} onChange={handleSortChange} defaultValue="No Sorting">
+      <select className={styles.sortDropdown}
+              onChange={handleSortChange}
+              value={sort}>
         <option value="No sorting">No sorting</option>
         <option value="price ascending">Price Ascending</option>
         <option value="price descending">Price Descending</option>
