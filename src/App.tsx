@@ -1,9 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductList from "./components/productList/ProductList.tsx";
 import { Provider } from "react-redux";
 import store from "./store/store.ts";
+import ProductDetailsPage from "./components/ProductDetailsPage/ProductDetailsPage.tsx";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<ProductList />} />
-          {/* <Route path="/product/:id" element={<ProductDetails />} /> */}
+          <Route path="/product/:productId" element={<ProductDetailsPage />} />
         </Routes>
       </Router>
     </Provider>
