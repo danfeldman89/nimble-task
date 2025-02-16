@@ -15,9 +15,7 @@ export function ProductDisplay({ product }: ProductDisplayProps) {
 
   return (
     <div className={styles.root} onClick={handleClick}>
-      <div className={styles["image-url"]}>
-        {product.imageUrl}
-      </div>
+      <img src={product.imageUrl} alt={product.name} className={styles["image-url"]}></img>
       <div className={styles["product-info"]}>
         <div>
           {product.name}
@@ -25,13 +23,21 @@ export function ProductDisplay({ product }: ProductDisplayProps) {
         <div>
           {product.description}
         </div>
-        {/*<div className="created">*/}
-        {/*  {product.created.getDate()}*/}
-        {/*</div>*/}
+        <div className="created">
+          {new Date(product.created).toLocaleDateString()}
+        </div>
         <div className="price">
           {product.price}
         </div>
+      </div>
 
+      <div className={styles["delete-button"]}>
+        <button onClick={(e) => {
+          e.stopPropagation();
+          // dispatch(deleteProduct(product.id));
+        }}>
+          Delete
+        </button>
       </div>
     </div>
   );
