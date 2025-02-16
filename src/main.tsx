@@ -5,8 +5,8 @@ import App from './App.tsx'
 import store from "./store/store.ts";
 import { loadProducts, updateProducts } from "./store/productsSlice.ts";
 
-const products = await loadProducts(); // Load products from localStorage or JSON
-store.dispatch(updateProducts(products)); // Update the Redux store
+const products = await loadProducts();
+store.dispatch(updateProducts(products));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
