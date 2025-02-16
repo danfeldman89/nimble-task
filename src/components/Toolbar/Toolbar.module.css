@@ -1,0 +1,43 @@
+:root {
+    --toolbar-margin: 0 1rem;
+}
+
+.root select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.root {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    margin: 0 0 2rem 0;
+
+    select {
+        padding: 5px 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        background-color: #ffffff;
+        color: #333333;
+        cursor: pointer;
+        margin: var(--toolbar-margin);
+    }
+
+    input {
+        margin: var(--toolbar-margin);
+    }
+
+    .addButton {
+        display: flex;
+        min-width: 100px;
+    }
+}
+
+
